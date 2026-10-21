@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blasta Bars - Email Signature Generator</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; }
+        .preview-font { font-family: 'Outfit', 'Segoe UI', Arial, sans-serif; }
+        .custom-scroll::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+        .custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col antialiased">
+
+    <header class="bg-slate-950/80 backdrop-blur border-b border-slate-800 sticky top-0 z-40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div>
+                <h1 class="text-base sm:text-lg font-bold text-white tracking-wide">Blastabars Email Signature Generator</h1>
+            </div>
+
+            <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Director Quick Switcher -->
+                <div class="bg-slate-900 p-1 rounded-xl border border-slate-700/80 flex items-center gap-1 shadow-inner">
+                    <button id="btn-profile-ciaran" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 bg-[#d81b60] text-white shadow-sm">
+                        <i class="fa-solid fa-user text-[11px]"></i> Ciaran Smyth
+                    </button>
+                    <button id="btn-profile-david" class="px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-slate-800">
+                        <i class="fa-solid fa-user text-[11px]"></i> David Neely
+                    </button>
+                </div>
+
+                <button id="btn-reset" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-slate-300 transition flex items-center gap-1.5 border border-slate-700" title="Reset active profile to original defaults">
+                    <i class="fa-solid fa-rotate-left text-slate-400"></i> Reset
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+        <!-- Left Form Column -->
+        <section class="lg:col-span-5 bg-slate-800/80 border border-slate-700 rounded-2xl p-6 shadow-xl space-y-6">
+            <div class="border-b border-slate-700 pb-4">
+                <h2 class="text-sm font-semibold text-white flex items-center gap-2">
+                    <i class="fa-solid fa-pen-to-square text-[#d81b60]"></i> Contact Details
+                </h2>
+                <p class="text-xs text-slate-400 mt-1">Changes update the preview instantly in real-time.</p>
+            </div>
+
+            <div class="space-y-4 text-xs">
+                <!-- Name -->
+                <div>
+                    <label class="block font-medium text-slate-300 mb-1.5">Full Name</label>
+                    <input type="text" id="input-name" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#d81b60] focus:ring-1 focus:ring-[#d81b60] transition" placeholder="e.g. Ciaran Smyth">
+                </div>
+
+                <!-- Job Title -->
+                <div>
+                    <label class="block font-medium text-slate-300 mb-1.5">Job Title / Role</label>
+                    <input type="text" id="input-title" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#d81b60] focus:ring-1 focus:ring-[#d81b60] transition" placeholder="e.g. Director">
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Phone -->
+                    <div>
+                        <label class="block font-medium text-slate-300 mb-1.5">Phone Number</label>
+                        <input type="text" id="input-phone" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#d81b60] focus:ring-1 focus:ring-[#d81b60] transition" placeholder="+447971169487">
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label class="block font-medium text-slate-300 mb-1.5">Email Address</label>
+                        <input type="email" id="input-email" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#d81b60] focus:ring-1 focus:ring-[#d81b60] transition" placeholder="ciaran@blastabars.com">
+                    </div>
+                </div>
+
+                <!-- Website -->
+                <div>
+                    <label class="block font-medium text-slate-300 mb-1.5">Website</label>
+                    <input type="text" id="input-website" class="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-[#d81b60] focus:ring-1 focus:ring-[#d81b60] transition" placeholder="blastabars.com">
+                </div>
+
+                <!-- Social Media Links -->
+                <div class="pt-2 border-t border-slate-700/60 space-y-3">
+                    <label class="block font-semibold text-slate-200">Linkable Social Media Profiles</label>
+
+                    <div class="space-y-2.5">
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-full bg-[#d81b60] flex items-center justify-center text-white text-xs shrink-0">
+                                <i class="fa-brands fa-facebook-f"></i>
+                            </span>
+                            <input type="text" id="input-fb" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-white focus:outline-none focus:border-[#d81b60] text-xs transition" placeholder="Facebook URL">
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-full bg-[#d81b60] flex items-center justify-center text-white text-xs shrink-0">
+                                <i class="fa-brands fa-instagram"></i>
+                            </span>
+                            <input type="text" id="input-ig" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-white focus:outline-none focus:border-[#d81b60] text-xs transition" placeholder="Instagram URL">
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-full bg-[#d81b60] flex items-center justify-center text-white text-xs shrink-0">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </span>
+                            <input type="text" id="input-x" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-white focus:outline-none focus:border-[#d81b60] text-xs transition" placeholder="X / Twitter URL">
+                        </div>
+
+                        <div class="flex items-center gap-2">
+                            <span class="w-7 h-7 rounded-full bg-[#d81b60] flex items-center justify-center text-white text-xs shrink-0">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </span>
+                            <input type="text" id="input-tiktok" class="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-white focus:outline-none focus:border-[#d81b60] text-xs transition" placeholder="TikTok URL (optional)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Right Preview Column -->
+        <section class="lg:col-span-7 flex flex-col gap-6">
+            <div class="bg-slate-800/80 border border-slate-700 rounded-2xl shadow-xl overflow-hidden flex flex-col">
+                <!-- Preview Header -->
+                <div class="px-5 py-3.5 bg-slate-900/60 border-b border-slate-700 flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                        <span class="text-xs font-medium text-slate-300">Live Mockup Preview</span>
+                    </div>
+                    <span class="text-[11px] text-slate-400 font-mono">Mobile & Desktop Tested</span>
+                </div>
+
+                <!-- Preview Canvas Stage -->
+                <div class="p-6 sm:p-10 bg-slate-950/50 flex items-center justify-center overflow-x-auto custom-scroll min-h-[260px]">
+                    <!-- Target rendering element for visual copy -->
+                    <div id="signature-container" class="inline-block bg-white shadow-2xl rounded-sm overflow-hidden">
+                        <!-- Dynamic email HTML injected here -->
+                    </div>
+                </div>
+
+                <!-- Action Toolbar -->
+                <div class="p-5 bg-slate-900/90 border-t border-slate-700 flex flex-col sm:flex-row gap-3">
+                    <button id="btn-copy-visual" class="flex-1 py-3 px-4 bg-gradient-to-r from-[#d81b60] to-[#e91e63] hover:from-[#c2185b] hover:to-[#d81b60] text-white text-xs font-bold rounded-xl shadow-lg shadow-pink-600/30 transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-copy text-sm"></i> Copy Visual Signature (For Gmail / Outlook)
+                    </button>
+                    <button id="btn-copy-html" class="py-3 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-600 text-xs font-semibold rounded-xl transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-code text-sm"></i> Copy HTML
+                    </button>
+                </div>
+            </div>
+
+            <!-- How To Paste Instructions -->
+            <div class="bg-slate-800/40 border border-slate-700/80 rounded-2xl p-5 text-xs text-slate-300">
+                <div class="font-bold text-white mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-question text-[#d81b60]"></i> How to paste into your email client:
+                </div>
+                <ul class="space-y-1.5 text-slate-400 text-[11px] list-disc list-inside">
+                    <li>Click <strong class="text-white">"Copy Visual Signature"</strong> above.</li>
+                    <li>Go to your email settings:
+                        <span class="text-slate-300">Gmail Settings &rarr; Signature</span>, or
+                        <span class="text-slate-300">Outlook Settings &rarr; Mail &rarr; Signatures</span>.
+                    </li>
+                    <li>Paste with <kbd class="px-1.5 py-0.5 bg-slate-900 rounded border border-slate-700 text-white font-mono">Ctrl + V</kbd> (Windows) or <kbd class="px-1.5 py-0.5 bg-slate-900 rounded border border-slate-700 text-white font-mono">Cmd + V</kbd> (Mac) directly into the box and save.</li>
+                </ul>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="toast" class="fixed bottom-6 right-6 transform translate-y-24 opacity-0 transition-all duration-300 z-50 pointer-events-none bg-slate-950 border border-slate-700 text-white px-4 py-3 rounded-xl shadow-2xl flex items-center gap-3 text-xs">
+        <i id="toast-icon" class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="toast-text" class="font-medium text-slate-200">Signature copied to clipboard!</span>
+    </div>
+
+    <script>
+        // Hosted assets on GitHub raw CDN
+        const GITHUB_BASE = "https://raw.githubusercontent.com/owenmageedesign/blastabars-email/main";
+
+        const sharedDefaults = {
+            website: "blastabars.com",
+            fbUrl: "https://www.facebook.com/blastabarseventcompany",
+            igUrl: "",
+            xUrl: "https://x.com/blastabars",
+            tiktokUrl: "",
+            logoUrl: `${GITHUB_BASE}/logo.jpg`,
+            squiggleUrl: `${GITHUB_BASE}/squiggle.png`,
+            fbIconUrl: `${GITHUB_BASE}/fb.png`,
+            igIconUrl: `${GITHUB_BASE}/insta.png`,
+            xIconUrl: `${GITHUB_BASE}/x.png`,
+            tiktokIconUrl: `${GITHUB_BASE}/tiktok.png`,
+            accentColor: "#d81b60",
+            darkColor: "#1a1c4b"
+        };
+
+        const profiles = {
+            ciaran: {
+                ...sharedDefaults,
+                name: "Ciaran Smyth",
+                title: "Director",
+                phone: "+447971169487",
+                email: "ciaran@blastabars.com"
+            },
+            david: {
+                ...sharedDefaults,
+                name: "David Neely",
+                title: "Director",
+                phone: "+447836325942",
+                email: "david@blastabars.com"
+            }
+        };
+
+        let currentProfileKey = 'ciaran';
+        let state = { ...profiles.ciaran };
+
+        const el = {
+            btnProfileCiaran: document.getElementById('btn-profile-ciaran'),
+            btnProfileDavid: document.getElementById('btn-profile-david'),
+            name: document.getElementById('input-name'),
+            title: document.getElementById('input-title'),
+            phone: document.getElementById('input-phone'),
+            email: document.getElementById('input-email'),
+            website: document.getElementById('input-website'),
+            fb: document.getElementById('input-fb'),
+            ig: document.getElementById('input-ig'),
+            x: document.getElementById('input-x'),
+            tiktok: document.getElementById('input-tiktok'),
+            container: document.getElementById('signature-container'),
+            btnReset: document.getElementById('btn-reset'),
+            btnCopyVisual: document.getElementById('btn-copy-visual'),
+            btnCopyHtml: document.getElementById('btn-copy-html'),
+            toast: document.getElementById('toast'),
+            toastText: document.getElementById('toast-text'),
+            toastIcon: document.getElementById('toast-icon')
+        };
+
+        function switchProfile(profileKey) {
+            currentProfileKey = profileKey;
+            state = { ...profiles[profileKey] };
+            populateInputs();
+            updateToggleButtons();
+            render();
+            showToast(`Loaded ${state.name}'s profile`);
+        }
+
+        function updateToggleButtons() {
+            if (currentProfileKey === 'ciaran') {
+                el.btnProfileCiaran.className = "px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 bg-[#d81b60] text-white shadow-sm";
+                el.btnProfileDavid.className = "px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-slate-800";
+            } else {
+                el.btnProfileDavid.className = "px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 bg-[#d81b60] text-white shadow-sm";
+                el.btnProfileCiaran.className = "px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 text-slate-300 hover:text-white hover:bg-slate-800";
+            }
+        }
+
+        function populateInputs() {
+            el.name.value = state.name;
+            el.title.value = state.title;
+            el.phone.value = state.phone;
+            el.email.value = state.email;
+            el.website.value = state.website;
+            el.fb.value = state.fbUrl;
+            el.ig.value = state.igUrl;
+            el.x.value = state.xUrl;
+            el.tiktok.value = state.tiktokUrl;
+        }
+
+        function buildSignatureHtml() {
+            const logoSrc = state.logoUrl && state.logoUrl.trim() !== '' ? state.logoUrl : `${GITHUB_BASE}/logo.jpg`;
+            const squiggleSrc = state.squiggleUrl && state.squiggleUrl.trim() !== '' ? state.squiggleUrl : `${GITHUB_BASE}/squiggle.png`;
+            const fbIconSrc = state.fbIconUrl && state.fbIconUrl.trim() !== '' ? state.fbIconUrl : `${GITHUB_BASE}/fb.png`;
+            const igIconSrc = state.igIconUrl && state.igIconUrl.trim() !== '' ? state.igIconUrl : `${GITHUB_BASE}/insta.png`;
+            const xIconSrc = state.xIconUrl && state.xIconUrl.trim() !== '' ? state.xIconUrl : `${GITHUB_BASE}/x.png`;
+            const tiktokIconSrc = state.tiktokIconUrl && state.tiktokIconUrl.trim() !== '' ? state.tiktokIconUrl : `${GITHUB_BASE}/tiktok.png`;
+            const cleanWeb = (state.website || '').replace(/^https?:\/\//, '');
+            const webLink = cleanWeb ? `https://${cleanWeb}` : 'https://blastabars.com';
+
+            // Social icons list with rigid width & height
+            const socialLinks = [];
+            if (state.fbUrl && state.fbUrl.trim()) {
+                socialLinks.push(`
+                    <td style="padding-right:6px;line-height:0;font-size:0;" valign="middle">
+                        <a href="${state.fbUrl}" target="_blank" style="text-decoration:none;display:inline-block;border:0;">
+                            <img src="${fbIconSrc}" width="22" height="22" alt="FB" style="display:block;border:0;width:22px;height:22px;min-width:22px;max-width:22px;" />
+                        </a>
+                    </td>
+                `);
+            }
+            if (state.igUrl && state.igUrl.trim()) {
+                socialLinks.push(`
+                    <td style="padding-right:6px;line-height:0;font-size:0;" valign="middle">
+                        <a href="${state.igUrl}" target="_blank" style="text-decoration:none;display:inline-block;border:0;">
+                            <img src="${igIconSrc}" width="22" height="22" alt="IG" style="display:block;border:0;width:22px;height:22px;min-width:22px;max-width:22px;" />
+                        </a>
+                    </td>
+                `);
+            }
+            if (state.xUrl && state.xUrl.trim()) {
+                socialLinks.push(`
+                    <td style="padding-right:6px;line-height:0;font-size:0;" valign="middle">
+                        <a href="${state.xUrl}" target="_blank" style="text-decoration:none;display:inline-block;border:0;">
+                            <img src="${xIconSrc}" width="22" height="22" alt="X" style="display:block;border:0;width:22px;height:22px;min-width:22px;max-width:22px;" />
+                        </a>
+                    </td>
+                `);
+            }
+            if (state.tiktokUrl && state.tiktokUrl.trim()) {
+                socialLinks.push(`
+                    <td style="padding-right:6px;line-height:0;font-size:0;" valign="middle">
+                        <a href="${state.tiktokUrl}" target="_blank" style="text-decoration:none;display:inline-block;border:0;">
+                            <img src="${tiktokIconSrc}" width="22" height="22" alt="TikTok" style="display:block;border:0;width:22px;height:22px;min-width:22px;max-width:22px;" />
+                        </a>
+                    </td>
+                `);
+            }
+
+            const socialRowHtml = socialLinks.length > 0 ? `
+                <tr>
+                    <td align="right" style="padding-top:4px;line-height:0;font-size:0;">
+                        <table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border-spacing:0;margin-left:auto;">
+                            <tr>${socialLinks.join('')}</tr>
+                        </table>
+                    </td>
+                </tr>
+            ` : '';
+
+            // Clean, mobile-safe HTML email table with seamless zero-gap cells
+            return `
+<!-- BLASTA BARS SIGNATURE START -->
+<table border="0" cellpadding="0" cellspacing="0" width="395" style="width:395px;max-width:395px;background-color:#EEEEEE;border-collapse:collapse;border-spacing:0;mso-table-lspace:0pt;mso-table-rspace:0pt;table-layout:fixed;font-family:'Outfit',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;line-height:normal;">
+    <tr style="margin:0;padding:0;border:0;">
+        <!-- Left Panel: Locked 150x150 Full-Height Logo -->
+        <td width="150" height="150" valign="top" align="center" style="width:150px;min-width:150px;max-width:150px;height:150px;min-height:150px;max-height:150px;background-color:#000000;padding:0;margin:0;line-height:0;font-size:0;border:none;border-right:0 none;">
+            <a href="${webLink}" target="_blank" style="display:block;text-decoration:none;border:0;line-height:0;margin:0;padding:0;width:150px;height:150px;">
+                <img src="${logoSrc}" width="150" height="150" alt="Blasta Bars" style="display:block;width:150px;height:150px;min-width:150px;max-width:150px;border:0;outline:none;text-decoration:none;margin:0;padding:0;" />
+            </a>
+        </td>
+
+        <!-- Right Panel: Text & Socials perfectly calibrated to <= 150px height -->
+        <td valign="middle" style="padding:8px 12px 6px 12px;background-color:#EEEEEE;width:245px;min-width:245px;max-width:245px;height:150px;box-sizing:border-box;border:none;border-left:0 none;">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="width:100%;border-collapse:collapse;border-spacing:0;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+                <!-- Full Name -->
+                <tr>
+                    <td style="font-family:'Outfit',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:18px;font-weight:700;color:${state.accentColor};line-height:1.15;letter-spacing:-0.2px;padding:0;">
+                        ${state.name || ''}
+                    </td>
+                </tr>
+
+                <!-- Job Title -->
+                <tr>
+                    <td style="font-family:'Outfit',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:12px;font-weight:600;color:${state.darkColor};padding-top:2px;padding-bottom:3px;line-height:1.15;">
+                        ${state.title || ''}
+                    </td>
+                </tr>
+
+                <!-- Squiggly Divider Line -->
+                <tr>
+                    <td style="padding-bottom:5px;line-height:0;font-size:0;">
+                        <img src="${squiggleSrc}" width="68" height="6" alt="~" style="display:block;width:68px;height:6px;border:0;" />
+                    </td>
+                </tr>
+
+                <!-- Contact Info Rows -->
+                <tr>
+                    <td style="font-family:'Outfit',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:11px;font-weight:600;color:${state.darkColor};line-height:1.4;padding:0;">
+                        ${state.phone ? `<div><a href="tel:${state.phone}" style="color:${state.darkColor};text-decoration:none;">${state.phone}</a></div>` : ''}
+                        ${state.email ? `<div><a href="mailto:${state.email}" style="color:${state.darkColor};text-decoration:none;">${state.email}</a></div>` : ''}
+                        ${cleanWeb ? `<div><a href="https://${cleanWeb}" target="_blank" style="color:${state.darkColor};text-decoration:none;">${cleanWeb}</a></div>` : ''}
+                    </td>
+                </tr>
+
+                <!-- Social Badges Row (Dedicated row, right-aligned) -->
+                ${socialRowHtml}
+            </table>
+        </td>
+    </tr>
+</table>
+<!-- BLASTA BARS SIGNATURE END -->
+            `.trim();
+        }
+
+        function render() {
+            el.container.innerHTML = buildSignatureHtml();
+        }
+
+        async function copyVisualSignature() {
+            const html = buildSignatureHtml();
+
+            try {
+                // Clipboard Item (Rich HTML MIME copy supported by Chrome, Safari, Edge)
+                if (navigator.clipboard && window.ClipboardItem) {
+                    const htmlBlob = new Blob([html], { type: "text/html" });
+                    const textBlob = new Blob([el.container.innerText], { type: "text/plain" });
+                    const item = new ClipboardItem({
+                        "text/html": htmlBlob,
+                        "text/plain": textBlob
+                    });
+                    await navigator.clipboard.write([item]);
+                    showToast("Visual signature copied! Paste directly into Gmail/Outlook settings.");
+                    return;
+                }
+            } catch (err) {
+                console.warn("ClipboardItem rich text error, trying DOM range fallback:", err);
+            }
+
+            // Fallback selection range
+            try {
+                const range = document.createRange();
+                range.selectNode(el.container);
+                const sel = window.getSelection();
+                sel.removeAllRanges();
+                sel.addRange(range);
+                const successful = document.execCommand('copy');
+                sel.removeAllRanges();
+
+                if (successful) {
+                    showToast("Visual signature copied! Paste directly into Gmail/Outlook.");
+                } else {
+                    throw new Error("execCommand failed");
+                }
+            } catch (e) {
+                showToast("Could not auto-copy. Please manually select the preview to copy.", true);
+            }
+        }
+
+        function copyHtmlSignature() {
+            const html = buildSignatureHtml();
+            const textarea = document.createElement("textarea");
+            textarea.value = html;
+            document.body.appendChild(textarea);
+            textarea.select();
+            try {
+                document.execCommand('copy');
+                showToast("HTML source code copied to clipboard!");
+            } catch (e) {
+                showToast("Copy failed.", true);
+            }
+            document.body.removeChild(textarea);
+        }
+
+        let toastTimer;
+        function showToast(message, isError = false) {
+            clearTimeout(toastTimer);
+            el.toastText.textContent = message;
+
+            if (isError) {
+                el.toastIcon.className = "fa-solid fa-circle-exclamation text-rose-400 text-base";
+            } else {
+                el.toastIcon.className = "fa-solid fa-circle-check text-emerald-400 text-base";
+            }
+
+            el.toast.classList.remove('translate-y-24', 'opacity-0');
+            el.toast.classList.add('translate-y-0', 'opacity-100');
+
+            toastTimer = setTimeout(() => {
+                el.toast.classList.remove('translate-y-0', 'opacity-100');
+                el.toast.classList.add('translate-y-24', 'opacity-0');
+            }, 3000);
+        }
+
+        function attachListeners() {
+            const map = [
+                [el.name, 'name'],
+                [el.title, 'title'],
+                [el.phone, 'phone'],
+                [el.email, 'email'],
+                [el.website, 'website'],
+                [el.fb, 'fbUrl'],
+                [el.ig, 'igUrl'],
+                [el.x, 'xUrl'],
+                [el.tiktok, 'tiktokUrl']
+            ];
+
+            map.forEach(([inputEl, stateKey]) => {
+                inputEl.addEventListener('input', (e) => {
+                    state[stateKey] = e.target.value;
+                    render();
+                });
+            });
+
+            el.btnProfileCiaran.addEventListener('click', () => switchProfile('ciaran'));
+            el.btnProfileDavid.addEventListener('click', () => switchProfile('david'));
+
+            el.btnReset.addEventListener('click', () => {
+                state = { ...profiles[currentProfileKey] };
+                populateInputs();
+                render();
+                showToast(`Reset ${state.name}'s defaults`);
+            });
+
+            el.btnCopyVisual.addEventListener('click', copyVisualSignature);
+            el.btnCopyHtml.addEventListener('click', copyHtmlSignature);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            populateInputs();
+            attachListeners();
+            render();
+        });
+    </script>
+</body>
+</html>
